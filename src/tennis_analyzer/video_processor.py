@@ -9,6 +9,7 @@ def load_video(path):
 
     return cap
 
+
 def extract_frames(cap):
     frames = []
 
@@ -21,3 +22,7 @@ def extract_frames(cap):
     cap.release()
 
     return frames
+
+
+def export_video():
+    pass
