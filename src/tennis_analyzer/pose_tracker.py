@@ -18,3 +18,23 @@ def get_landmarks(frame, pose):
         return None
 
     return result
+
+
+def get_coordinates(landmarks):
+    coordinates = lambda landmark: [landmark.x, landmark.y, landmark.z]
+
+    body_parts_index = {
+        "schulter_links": 11,
+        "schulter_rechts": 12,
+        "ellbogen_links": 13,
+        "ellbogen_rechts": 14,
+        "handgelenk_links": 15,
+        "handgelenk_rechts": 16,
+    }
+
+    body_parts_coordinates = {
+        key: coordinates(landmarks.landmark[value])
+        for key, value in body_parts_index.items()
+    }
+
+    return body_parts_coordinates
