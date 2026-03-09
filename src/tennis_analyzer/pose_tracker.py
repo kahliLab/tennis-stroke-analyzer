@@ -38,3 +38,17 @@ def get_coordinates(landmarks):
     }
 
     return body_parts_coordinates
+
+
+def get_pose_data(frames):
+    pose_data = []
+
+    pose = init_pose()
+    for frame in frames:
+        landmarks = get_landmarks(frame, pose)
+        if not landmarks:
+            continue
+        coordinates = get_coordinates(landmarks)
+        pose_data.append(coordinates)
+
+    return pose_data
