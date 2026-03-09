@@ -12,12 +12,12 @@ def init_pose():
 def get_landmarks(frame, pose):
     fixed_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    result = pose.process(fixed_frame)
+    landmarks = pose.process(fixed_frame)
 
-    if not result.pose_landmarks:
+    if not landmarks.pose_landmarks:
         return None
 
-    return result
+    return landmarks
 
 
 def get_coordinates(landmarks):
@@ -32,12 +32,12 @@ def get_coordinates(landmarks):
         "handgelenk_rechts": 16,
     }
 
-    body_parts_coordinates = {
+    coordinates = {
         key: coordinates(landmarks.landmark[value])
         for key, value in body_parts_index.items()
     }
 
-    return body_parts_coordinates
+    return coordinates
 
 
 def get_pose_data(frames):
