@@ -5,10 +5,10 @@ def detect_dominant_hand(pose_data):
     dominant_hand = None
 
     left_hand = [
-        i["handgelenk_links"][1] for i in pose_data if i.get("handgelenk_links")
+        i["wrist_left"][1] for i in pose_data if i.get("wrist_left")
     ]
     right_hand = [
-        i["handgelenk_rechts"][1] for i in pose_data if i.get("handgelenk_rechts")
+        i["wrist_right"][1] for i in pose_data if i.get("wrist_right")
     ]
 
     get_diff = lambda diff: sum(abs(a - b) for a, b in zip(diff[1:], diff[:-1]))
@@ -36,16 +36,16 @@ def classify_stroke(pose_data):
 
     get_y = lambda pose, part: pose[f"{part}{select_hand}"][1]
 
-    handgelenk_start = get_y(start_pose, "handgelenk")
-    handgelenk_end = get_y(end_pose, "handgelenk")
-    ellbogen_start = get_y(start_pose, "ellbogen")
-    ellbogen_end = get_y(end_pose, "ellbogen")
+    wrist_start = get_y(start_pose, "wrist")
+    wrist_end = get_y(end_pose, "wrist")
+    elbow_start = get_y(start_pose, "elbow")
+    elbow_end = get_y(end_pose, "elbow")
 
-    if abs(handgelenk_start - ellbogen_start) < THRESHOLD:
+    if abs(wrist_start - elbow_start) < THRESHOLD:
         stroke = "Flat"
-    elif handgelenk_start < ellbogen_start and handgelenk_end > ellbogen_end:
+    elif wrist_start < elbow_start and wrist_end > elbow_end:
         stroke = "Topspin"
-    elif handgelenk_start > ellbogen_start and handgelenk_end < ellbogen_end:
+    elif wrist_start > elbow_start and wrist_end < elbow_end:
         stroke = "Slice"
     else:
         stroke = "Learn tennis first!"
