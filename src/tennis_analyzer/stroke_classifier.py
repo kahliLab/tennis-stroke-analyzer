@@ -1,3 +1,6 @@
+THRESHOLD = 0.05
+
+
 def detect_dominant_hand(pose_data):
     dominant_hand = None
 
@@ -19,3 +22,32 @@ def detect_dominant_hand(pose_data):
         dominant_hand = "right"
 
     return dominant_hand
+
+
+def classify_stroke(pose_data):
+    dominant_hand = detect_dominant_hand(pose_data)
+
+    if dominant_hand == "left":
+        select_hand = "_links"
+    else:
+        select_hand = "_rechts"
+
+    start_pose, end_pose = pose_data[0], pose_data[-1]
+
+    get_y = lambda pose, part: pose[f"{part}{select_hand}"][1]
+
+    handgelenk_start = get_y(start_pose, "handgelenk")
+    handgelenk_end = get_y(end_pose, "handgelenk")
+    ellbogen_start = get_y(start_pose, "ellbogen")
+    ellbogen_end = get_y(end_pose, "ellbogen")
+
+    if abs(handgelenk_start - ellbogen_start) < THRESHOLD:
+        stroke = "Flat"
+    elif handgelenk_start < ellbogen_start and handgelenk_end > ellbogen_end:
+        stroke = "Topspin"
+    elif handgelenk_start > ellbogen_start and handgelenk_end < ellbogen_end:
+        stroke = "Slice"
+    else:
+        stroke = "Learn tennis first!"
+
+    return stroke
