@@ -24,12 +24,12 @@ def get_coordinates(landmarks):
     coordinates = lambda landmark: [landmark.x, landmark.y, landmark.z]
 
     body_parts_index = {
-        "schulter_links": 11,
-        "schulter_rechts": 12,
-        "ellbogen_links": 13,
-        "ellbogen_rechts": 14,
-        "handgelenk_links": 15,
-        "handgelenk_rechts": 16,
+        "shoulder_left": 11,
+        "shoulder_right": 12,
+        "elbow_left": 13,
+        "elbow_right": 14,
+        "wrist_left": 15,
+        "wrist_right": 16,
     }
 
     coordinates = {
