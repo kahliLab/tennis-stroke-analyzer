@@ -13,8 +13,7 @@ def detect_dominant_hand(pose_data):
 
     get_diff = lambda diff: sum(abs(a - b) for a, b in zip(diff[1:], diff[:-1]))
 
-    left_diff = get_diff(left_hand)
-    right_diff = get_diff(right_hand)
+    left_diff, right_diff = get_diff(left_hand), get_diff(right_hand)
 
     if left_diff > right_diff:
         dominant_hand = "left"
@@ -25,16 +24,11 @@ def detect_dominant_hand(pose_data):
 
 
 def classify_stroke(pose_data):
-    dominant_hand = detect_dominant_hand(pose_data)
-
-    if dominant_hand == "left":
-        select_hand = "_links"
-    else:
-        select_hand = "_rechts"
+    dominant_hand = f"_{detect_dominant_hand(pose_data)}"
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
 
-    get_y = lambda pose, part: pose[f"{part}{select_hand}"][1]
+    get_y = lambda pose, part: pose[f"{part}{dominant_hand}"][1]
 
     wrist_start = get_y(start_pose, "wrist")
     wrist_end = get_y(end_pose, "wrist")
