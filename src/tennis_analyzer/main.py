@@ -1,7 +1,7 @@
-from overlay import draw_lines, put_text
-from pose_tracker import get_coordinates, get_landmarks, get_pose_data, init_pose
-from stroke_classifier import classify_stroke, detect_dominant_hand
-from video_processor import export_video, extract_frames, load_video
+from tennis_analyzer.overlay import draw_lines, put_text
+from tennis_analyzer.pose_tracker import get_coordinates, get_landmarks, get_pose_data, init_pose
+from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
+from tennis_analyzer.video_processor import export_video, extract_frames, load_video
 
 
 def main():
