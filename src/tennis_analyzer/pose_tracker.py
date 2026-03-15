@@ -1,5 +1,5 @@
-import mediapipe as mp
 import cv2
+import mediapipe as mp
 
 
 def init_pose():

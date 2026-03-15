@@ -1,20 +1,11 @@
 import cv2
 
-STROKE_COLOUR = {
-    "topspin": (0, 0, 255),
-    "flat": (0, 255, 0),
-    "slice": (255, 0, 0)
-}
+STROKE_COLOUR = {"topspin": (0, 0, 255), "flat": (0, 255, 0), "slice": (255, 0, 0)}
+
 
 def put_text(stroke, frame):
     frame_with_text = cv2.putText(
-        frame,
-        stroke,
-        (10, 30),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        1,
-        STROKE_COLOUR[stroke],
-        2
+        frame, stroke, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
     )
 
     return frame_with_text
@@ -28,7 +19,8 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
     wrist = coordindates[f"wrist_{dominant_hand}"]
 
     get_point = lambda body_part: (
-        int(body_part[0] * width), int(body_part[1] * height)
+        int(body_part[0] * width),
+        int(body_part[1] * height),
     )
 
     point_shoulder = get_point(shoulder)

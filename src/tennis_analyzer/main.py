@@ -1,7 +1,8 @@
-from video_processor import load_video, extract_frames, export_video
-from pose_tracker import get_pose_data, get_landmarks, get_coordinates, init_pose
+from overlay import draw_lines, put_text
+from pose_tracker import get_coordinates, get_landmarks, get_pose_data, init_pose
 from stroke_classifier import classify_stroke, detect_dominant_hand
-from overlay import put_text, draw_lines
+from video_processor import export_video, extract_frames, load_video
+
 
 def main():
     input_file = "./data/input.mp4"
