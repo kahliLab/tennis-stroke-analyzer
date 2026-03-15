@@ -1,7 +1,10 @@
 __pycache__/
 *.pyc
 .env
-output/
+output/*
+!output/.gitkeep
+data/*
+!data/.gitkeep
 *.mp4
 *.avi
 *.mov
