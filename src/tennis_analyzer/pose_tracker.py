@@ -1,10 +1,13 @@
 import cv2
 import mediapipe as mp
+import logging
 
+logger = logging.getLogger(__name__)
 
 def init_pose():
     mp_pose = mp.solutions.pose
     pose = mp_pose.Pose()
+    logger.info("Pose initialized.")
 
     return pose
 
@@ -15,6 +18,7 @@ def get_landmarks(frame, pose):
     landmarks = pose.process(fixed_frame)
 
     if not landmarks.pose_landmarks:
+        logger.warning("No landmarks found in frame.")
         return None
 
     return landmarks.pose_landmarks
@@ -37,6 +41,10 @@ def get_coordinates(landmarks):
         for key, value in body_parts_index.items()
     }
 
+    if not coordinates:
+        logger.error("No coordinates found!")
+        raise ValueError("Failed to extract coordinates from landmarks!")
+
     return coordinates
 
 
@@ -51,4 +59,5 @@ def get_pose_data(frames):
         coordinates = get_coordinates(landmarks)
         pose_data.append(coordinates)
 
+    logger.info(f"Processed {len(pose_data)} frames with landmarks out of {len(frames)} total.")
     return pose_data
