@@ -1,11 +1,11 @@
-from video_processor import load_video, extract_frames
+from video_processor import load_video, extract_frames, export_video
 from pose_tracker import get_pose_data, get_landmarks, get_coordinates, init_pose
 from stroke_classifier import classify_stroke, detect_dominant_hand
 from overlay import put_text, draw_lines
 
 def main():
     #video = some Path
-    cap = load_video(video)
+    cap, fps = load_video(video)
     frames = extract_frames(cap)
 
     pose = init_pose()
