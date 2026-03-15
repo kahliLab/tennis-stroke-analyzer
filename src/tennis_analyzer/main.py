@@ -18,6 +18,8 @@ def main():
     annotated_frames = []
     for frame in frames:
         landmarks = get_landmarks(frame, pose)
+        if not landmarks:
+            continue
         coord = get_coordinates(landmarks)
         frame_with_text = put_text(stroke, frame)
         frame_with_text_and_lines = draw_lines(coord, frame_with_text, stroke, dom_hand)
