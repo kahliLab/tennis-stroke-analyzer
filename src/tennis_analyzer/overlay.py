@@ -1,6 +1,6 @@
 import cv2
 
-STROKE_COLOUR = {"topspin": (0, 0, 255), "flat": (0, 255, 0), "slice": (255, 0, 0)}
+STROKE_COLOUR = {"Topspin": (0, 0, 255), "Flat": (0, 255, 0), "Slice": (255, 0, 0)}
 
 
 def put_text(stroke, frame):
