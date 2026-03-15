@@ -17,11 +17,11 @@ def get_landmarks(frame, pose):
     if not landmarks.pose_landmarks:
         return None
 
-    return landmarks
+    return landmarks.pose_landmarks
 
 
 def get_coordinates(landmarks):
-    coordinates = lambda landmark: [landmark.x, landmark.y, landmark.z]
+    coordinates_from_landmark = lambda landmark: [landmark.x, landmark.y, landmark.z]
 
     body_parts_index = {
         "shoulder_left": 11,
@@ -33,7 +33,7 @@ def get_coordinates(landmarks):
     }
 
     coordinates = {
-        key: coordinates(landmarks.landmark[value])
+        key: coordinates_from_landmark(landmarks.landmark[value])
         for key, value in body_parts_index.items()
     }
 
