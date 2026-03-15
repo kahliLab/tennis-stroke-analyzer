@@ -4,8 +4,8 @@ from stroke_classifier import classify_stroke, detect_dominant_hand
 from overlay import put_text, draw_lines
 
 def main():
-    #video = some Path
-    cap, fps = load_video(video)
+    input_file = "./data/input.mp4"
+    cap, fps = load_video(input_file)
     frames = extract_frames(cap)
 
     pose = init_pose()
@@ -14,7 +14,6 @@ def main():
     dom_hand = detect_dominant_hand(pose_data)
     stroke = classify_stroke(pose_data)
 
-
     annotated_frames = []
     for frame in frames:
         landmarks = get_landmarks(frame, pose)
@@ -22,6 +21,8 @@ def main():
         frame_with_text = put_text(stroke, frame)
         frame_with_text_and_lines = draw_lines(coord, frame_with_text, stroke, dom_hand)
         annotated_frames.append(frame_with_text_and_lines)
+
+    output_file = export_video(fps, annotated_frames)
 
 
 if __name__ == "__main__":
