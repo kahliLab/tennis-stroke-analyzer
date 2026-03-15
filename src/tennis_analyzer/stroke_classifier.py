@@ -4,12 +4,8 @@ THRESHOLD = 0.05
 def detect_dominant_hand(pose_data):
     dominant_hand = None
 
-    left_hand = [
-        i["wrist_left"][1] for i in pose_data if i.get("wrist_left")
-    ]
-    right_hand = [
-        i["wrist_right"][1] for i in pose_data if i.get("wrist_right")
-    ]
+    left_hand = [i["wrist_left"][1] for i in pose_data if i.get("wrist_left")]
+    right_hand = [i["wrist_right"][1] for i in pose_data if i.get("wrist_right")]
 
     get_diff = lambda diff: sum(abs(a - b) for a, b in zip(diff[1:], diff[:-1]))
 
