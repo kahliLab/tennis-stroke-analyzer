@@ -50,4 +50,9 @@ def classify_stroke(pose_data):
     else:
         stroke = "Learn tennis first!"
 
+    if stroke == "Learn tennis first!":
+        logger.warning("That's one weird stroke you have there...")
+    else:
+        logger.info(f"Stroke in frame classified as {stroke.lower()}")
+
     return stroke
