@@ -9,29 +9,34 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
+logger = logging.getLogger(__name__)
 
 def main():
-    input_file = "./data/input.mp4"
-    cap, fps = load_video(input_file)
-    frames = extract_frames(cap)
+    try:
+        input_file = "./data/input.mp4"
+        cap, fps = load_video(input_file)
+        frames = extract_frames(cap)
 
-    pose = init_pose()
-    pose_data = get_pose_data(frames)
+        pose = init_pose()
+        pose_data = get_pose_data(frames)
 
-    dom_hand = detect_dominant_hand(pose_data)
-    stroke = classify_stroke(pose_data)
+        dom_hand = detect_dominant_hand(pose_data)
+        stroke = classify_stroke(pose_data)
 
-    annotated_frames = []
-    for frame in frames:
-        landmarks = get_landmarks(frame, pose)
-        if not landmarks:
-            continue
-        coord = get_coordinates(landmarks)
-        frame_with_text = put_text(stroke, frame)
-        frame_with_text_and_lines = draw_lines(coord, frame_with_text, stroke, dom_hand)
-        annotated_frames.append(frame_with_text_and_lines)
+        annotated_frames = []
+        for frame in frames:
+            landmarks = get_landmarks(frame, pose)
+            if not landmarks:
+                continue
+            coord = get_coordinates(landmarks)
+            frame_with_text = put_text(stroke, frame)
+            frame_with_text_and_lines = draw_lines(coord, frame_with_text, stroke, dom_hand)
+            annotated_frames.append(frame_with_text_and_lines)
 
-    output_file = export_video(fps, annotated_frames)
+        output_file = export_video(fps, annotated_frames)
+
+    except Exception as e:
+        logger.error(f"Look here {e} for the error that crashed the programm.")
 
 
 if __name__ == "__main__":
