@@ -44,9 +44,9 @@ def classify_stroke(pose_data):
     if abs(wrist_start - elbow_start) < THRESHOLD:
         stroke = "Flat"
     elif wrist_start < elbow_start and wrist_end > elbow_end:
-        stroke = "Topspin"
-    elif wrist_start > elbow_start and wrist_end < elbow_end:
         stroke = "Slice"
+    elif wrist_start > elbow_start and wrist_end < elbow_end:
+        stroke = "Topspin"
     else:
         stroke = "Learn tennis first!"
 
