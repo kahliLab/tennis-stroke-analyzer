@@ -1,8 +1,16 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 THRESHOLD = 0.05
 
 
 def detect_dominant_hand(pose_data):
     dominant_hand = None
+
+    if not pose_data:
+        logger.error("No pose data available.")
+        raise ValueError("Detecting dominant is not possible without pose data.")
 
     left_hand = [i["wrist_left"][1] for i in pose_data if i.get("wrist_left")]
     right_hand = [i["wrist_right"][1] for i in pose_data if i.get("wrist_right")]
@@ -15,6 +23,8 @@ def detect_dominant_hand(pose_data):
         dominant_hand = "left"
     else:
         dominant_hand = "right"
+
+    logger.info(f"Dominant hand is {dominant_hand}")
 
     return dominant_hand
 
