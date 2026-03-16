@@ -1,13 +1,17 @@
 import cv2
+import logging
 
+logger = logging.getLogger(__name__)
 
 def load_video(path):
     cap = cv2.VideoCapture(path)
 
     if not cap.isOpened():
+        logger.error("Failed to open video source.")
         raise ValueError(f"Video {path} could not be opened.")
 
     fps = cap.get(cv2.CAP_PROP_FPS)
+    logger.info("Video loaded successfully!")
 
     return cap, fps
 
@@ -22,6 +26,7 @@ def extract_frames(cap):
         frames.append(frame)
 
     cap.release()
+    logger.info(f"{len(frames)} frames extracted from video.")
 
     return frames
 
@@ -37,5 +42,6 @@ def export_video(fps, frames, output_path="./output/output.mp4"):
         out.write(frame)
 
     out.release()
+    logger.info(f"Annotated frames successfully written to {output_path}!")
 
     return output_path
