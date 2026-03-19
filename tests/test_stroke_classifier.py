@@ -133,3 +133,14 @@ pose_data_right = [
 )
 def test_classifiy_stroke(pose_data, expected):
     assert classify_stroke(pose_data) == expected
+
+
+@pytest.mark.parametrize(
+    "pose_data, expected",
+    [
+        (pose_data_left, "left"),
+        (pose_data_right, "right"),
+    ],
+)
+def test_detect_dominant_hand(pose_data, expected):
+    assert detect_dominant_hand(pose_data) == expected
