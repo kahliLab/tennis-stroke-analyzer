@@ -1,6 +1,6 @@
 from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
 
-x, y, z = 0.05
+x = y =z = 0.05
 
 pose_data_topspin = [
     {
