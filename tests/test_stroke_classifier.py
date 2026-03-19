@@ -1,8 +1,8 @@
-from src.tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
 import pytest
 
+from src.tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
 
-x = y =z = 0.05
+x = y = z = 0.05
 
 pose_data_topspin = [
     {
@@ -82,6 +82,14 @@ pose_data_unknown = [
 ]
 
 
-def test_classifiy_stroke():
-    stroke = classify_stroke(pose_data_topspin)
-    assert stroke == "Topspin"
+@pytest.mark.parametrize(
+    "pose_data, expected",
+    [
+        (pose_data_topspin, "Topspin"),
+        (pose_data_slice, "Slice"),
+        (pose_data_flat, "Flat"),
+        (pose_data_unknown, "Learn tennis first!"),
+    ],
+)
+def test_classifiy_stroke(pose_data, expected):
+    assert classify_stroke(pose_data) == expected
