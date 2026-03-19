@@ -76,3 +76,8 @@ pose_data_unknown = [
         "wrist_right": [x, 0.14, z],
     },
 ]
+
+
+def test_classifiy_stroke():
+    stroke = classify_stroke(pose_data_topspin)
+    assert stroke == "Topspin"
