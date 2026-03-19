@@ -1,4 +1,6 @@
 from src.tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
+import pytest
+
 
 x = y =z = 0.05
 
