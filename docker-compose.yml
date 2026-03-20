@@ -9,4 +9,5 @@ services:
       - ./src/tennis_analyzer:/usr/app/src/tennis_analyzer
       - ./data:/usr/app/src/data
       - ./output:/usr/app/src/output
+      - ./tests:/usr/app/src/tests
     restart: no
