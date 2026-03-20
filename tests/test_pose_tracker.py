@@ -13,14 +13,14 @@ class FakeLandmark:
 
 class FakeLandmarks:
     def __init__(self):
-        self.landmakr = [FakeLandmark(0.5, 0.5, 0.5)] * 33
+        self.landmark = [FakeLandmark(0.5, 0.5, 0.5)] * 33
 
 
 @pytest.fixture
 def fake_landmarks():
-    return FakeLandmark()
+    return FakeLandmarks()
 
-def test_get_coordinates():
+def test_get_coordinates(fake_landmarks):
     result = get_coordinates(fake_landmarks)
 
     helper_body_parts_index = {
