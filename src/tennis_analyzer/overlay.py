@@ -3,7 +3,7 @@ import cv2
 
 logger = logging.getLogger(__name__)
 
-STROKE_COLOUR = {"Topspin": (0, 0, 255), "Flat": (0, 255, 0), "Slice": (255, 0, 0)}
+from tennis_analyzer.config import STROKE_COLOUR
 
 
 def put_text(stroke, frame):
