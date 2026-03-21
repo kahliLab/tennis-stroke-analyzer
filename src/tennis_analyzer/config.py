@@ -10,3 +10,6 @@ BODY_PARTS_INDEXES = {
     "wrist_left": 15,
     "wrist_right": 16,
 }
+
+INPUT_PATH = "./data/input.mp4"
+OUTPUT_PATH = "./output/output.mp4"
