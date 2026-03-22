@@ -2,7 +2,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-THRESHOLD = 0.05
+from tennis_analyzer.config import THRESHOLD
 
 
 def detect_dominant_hand(pose_data):

@@ -3,7 +3,7 @@ import cv2
 
 logger = logging.getLogger(__name__)
 
-STROKE_COLOUR = {"Topspin": (0, 0, 255), "Flat": (0, 255, 0), "Slice": (255, 0, 0)}
+from tennis_analyzer.config import STROKE_COLOUR, PARTS
 
 
 def put_text(stroke, frame):
@@ -11,11 +11,11 @@ def put_text(stroke, frame):
         logger.warning("Frame is None, skipping overlay.")
         return None
 
-    frame_with_text = cv2.putText(
+    frame = cv2.putText(
         frame, stroke, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
     )
 
-    return frame_with_text
+    return frame
 
 
 def draw_lines(coordindates, frame, stroke, dominant_hand):
@@ -25,20 +25,23 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
 
     height, width = frame.shape[:2]
 
-    shoulder = coordindates[f"shoulder_{dominant_hand}"]
-    elbow = coordindates[f"elbow_{dominant_hand}"]
-    wrist = coordindates[f"wrist_{dominant_hand}"]
-
     get_point = lambda body_part: (
         int(body_part[0] * width),
         int(body_part[1] * height),
     )
 
-    point_shoulder = get_point(shoulder)
-    point_elbow = get_point(elbow)
-    point_wrist = get_point(wrist)
+    points = {
+        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS
+    }
 
-    cv2.line(frame, point_shoulder, point_elbow, STROKE_COLOUR[stroke], 2)
-    cv2.line(frame, point_elbow, point_wrist, STROKE_COLOUR[stroke], 2)
+    cv2.line(frame, points["shoulder"], points["elbow"], STROKE_COLOUR[stroke], 2)
+    cv2.line(frame, points["elbow"], points["wrist"], STROKE_COLOUR[stroke], 2)
 
+    return frame
+
+
+def annotate_frame(stroke, frame, coordinates, dominant_hand):
+    frame = put_text(stroke, frame)
+    frame = draw_lines(coordinates, frame, stroke, frame, dominant_hand)
+    
     return frame

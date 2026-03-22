@@ -1,6 +1,8 @@
 import cv2
 import logging
 
+from tennis_analyzer.config import OUTPUT_PATH
+
 logger = logging.getLogger(__name__)
 
 def load_video(path):
@@ -31,7 +33,7 @@ def extract_frames(cap):
     return frames
 
 
-def export_video(fps, frames, output_path="./output/output.mp4"):
+def export_video(fps, frames, output_path=OUTPUT_PATH):
     height, width = frames[0].shape[:2]
 
     out = cv2.VideoWriter(
