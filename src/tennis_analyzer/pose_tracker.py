@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import BODY_PARTS_INDEXES
+from tennis_analyzer.config import ALL_LANDMARKS, PARTS
 
 def init_pose():
     mp_pose = mp.solutions.pose
@@ -12,6 +12,17 @@ def init_pose():
     logger.info("Pose initialized.")
 
     return pose
+
+
+def get_body_parts():
+    body_parts = {}
+    
+    for part in PARTS:
+        for key, value in ALL_LANDMARKS.items():
+            if part in key:
+                body_parts[key] = value
+
+    return body_parts
 
 
 def get_landmarks(frame, pose):
@@ -27,11 +38,12 @@ def get_landmarks(frame, pose):
 
 
 def get_coordinates(landmarks):
+    body_parts = get_body_parts()
     coordinates_from_landmark = lambda landmark: [landmark.x, landmark.y, landmark.z]
 
     coordinates = {
         key: coordinates_from_landmark(landmarks.landmark[value])
-        for key, value in BODY_PARTS_INDEXES.items()
+        for key, value in body_parts.items()
     }
 
     if not coordinates:
