@@ -1,7 +1,7 @@
 import pytest
 from dataclasses import dataclass
 
-from tennis_analyzer.pose_tracker import get_coordinates
+from tennis_analyzer.pose_tracker import get_coordinates, get_body_parts
 
 
 @dataclass
@@ -23,16 +23,10 @@ def fake_landmarks():
 def test_get_coordinates(fake_landmarks):
     result = get_coordinates(fake_landmarks)
 
-    helper_body_parts_index = {
-        "shoulder_left": 11,
-        "shoulder_right": 12,
-        "elbow_left": 13,
-        "elbow_right": 14,
-        "wrist_left": 15,
-        "wrist_right": 16,
-    }
-    assert len(result) == len(helper_body_parts_index)
+    body_parts = get_body_parts()
+
+    assert len(result) == len(body_parts)
 
     for key, value in result.items():
-        assert key in helper_body_parts_index.keys()
+        assert key in body_parts.keys()
         assert value == [0.5, 0.5, 0.5]
