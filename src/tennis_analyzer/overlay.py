@@ -34,8 +34,8 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
         part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS
     }
 
-    cv2.line(frame, points["shoulder"], points["elbow"], STROKE_COLOUR[stroke], 2)
-    cv2.line(frame, points["elbow"], points["wrist"], STROKE_COLOUR[stroke], 2)
+    for parts in zip(PARTS, PARTS[1:]):
+        cv2.line(frame, points[parts[0]], points[parts[1]], STROKE_COLOUR[stroke], 2)
 
     return frame
 
