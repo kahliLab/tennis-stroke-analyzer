@@ -25,20 +25,18 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
 
     height, width = frame.shape[:2]
 
-    shoulder = coordindates[f"shoulder_{dominant_hand}"]
-    elbow = coordindates[f"elbow_{dominant_hand}"]
-    wrist = coordindates[f"wrist_{dominant_hand}"]
+    parts = ["shoulder", "elbow", "wrist"]
 
     get_point = lambda body_part: (
         int(body_part[0] * width),
         int(body_part[1] * height),
     )
 
-    point_shoulder = get_point(shoulder)
-    point_elbow = get_point(elbow)
-    point_wrist = get_point(wrist)
+    points = {
+        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in parts
+    }
 
-    cv2.line(frame, point_shoulder, point_elbow, STROKE_COLOUR[stroke], 2)
-    cv2.line(frame, point_elbow, point_wrist, STROKE_COLOUR[stroke], 2)
+    cv2.line(frame, points["shoulder"], points["elbow"], STROKE_COLOUR[stroke], 2)
+    cv2.line(frame, points["elbow"], points["wrist"], STROKE_COLOUR[stroke], 2)
 
     return frame
