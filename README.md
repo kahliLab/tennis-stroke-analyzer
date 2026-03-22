@@ -1,4 +1,4 @@
-# tennis-stroke-analyzer 🎾
+# tennis-stroke-analyzer
 
 A Python-based computer vision tool that analyzes tennis videos and classifies strokes as Topspin, Slice, or Flat.
 
