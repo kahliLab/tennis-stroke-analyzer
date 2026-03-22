@@ -1,6 +1,6 @@
 import logging
 
-from tennis_analyzer.overlay import draw_lines, put_text
+from tennis_analyzer.overlay import annotate_frame
 from tennis_analyzer.pose_tracker import get_pose_data
 from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
 from tennis_analyzer.video_processor import export_video, extract_frames, load_video
@@ -25,9 +25,8 @@ def main():
 
         annotated_frames = []
         for frame, coord in zip(frames, pose_data):
-            frame_with_text = put_text(stroke, frame)
-            frame_with_text_and_lines = draw_lines(coord, frame_with_text, stroke, dom_hand)
-            annotated_frames.append(frame_with_text_and_lines)
+            annotated_frame = annotate_frame(stroke, frame, coord, dom_hand)
+            annotated_frames.append(annotated_frame)
 
         output_file = export_video(fps, annotated_frames)
 
