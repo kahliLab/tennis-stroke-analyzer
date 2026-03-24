@@ -1,7 +1,8 @@
 import cv2
+import imageio
 import logging
 
-from tennis_analyzer.config import OUTPUT_PATH
+from tennis_analyzer.config import OUTPUT_PATH, OUTPUT_PATH_GIF
 
 logger = logging.getLogger(__name__)
 
@@ -45,5 +46,11 @@ def export_video(fps, frames, output_path=OUTPUT_PATH):
 
     out.release()
     logger.info(f"Annotated frames successfully written to {output_path}!")
+
+    return output_path
+
+
+def export_gif(frames, output_path=OUTPUT_PATH_GIF):
+    imageio.mimsave(frames, output_path, fps=10)
 
     return output_path
