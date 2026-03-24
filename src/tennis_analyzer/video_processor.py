@@ -51,6 +51,6 @@ def export_video(fps, frames, output_path=OUTPUT_PATH):
 
 
 def export_gif(frames, output_path=OUTPUT_PATH_GIF):
-    imageio.mimsave(frames, output_path, fps=10)
+    imageio.mimsave(output_path, frames, fps=10)
 
     return output_path
