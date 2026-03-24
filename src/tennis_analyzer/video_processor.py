@@ -51,6 +51,7 @@ def export_video(fps, frames, output_path=OUTPUT_PATH):
 
 
 def export_gif(frames, output_path=OUTPUT_PATH_GIF):
-    imageio.mimsave(output_path, frames, fps=10)
+    fixed_frames = [cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) for frame in frames]
+    imageio.mimsave(output_path, fixed_frames, fps=10)
 
     return output_path
