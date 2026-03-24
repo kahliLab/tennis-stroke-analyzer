@@ -45,7 +45,7 @@ def export_video(fps, frames, output_path=OUTPUT_PATH_VIDEO):
         out.write(frame)
 
     out.release()
-    logger.info(f"Annotated frames successfully written to {output_path}!")
+    logger.info(f"MP4 export: Annotated frames successfully written to {output_path}!")
 
     return output_path
 
@@ -53,5 +53,7 @@ def export_video(fps, frames, output_path=OUTPUT_PATH_VIDEO):
 def export_gif(frames, output_path=OUTPUT_PATH_GIF):
     fixed_frames = [cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) for frame in frames]
     imageio.mimsave(output_path, fixed_frames, fps=10)
+
+    logger.info(f"GIF export: Annotated frames successfully written to {output_path}!")
 
     return output_path
