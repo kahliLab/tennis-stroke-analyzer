@@ -2,7 +2,7 @@ import cv2
 import imageio
 import logging
 
-from tennis_analyzer.config import OUTPUT_PATH, OUTPUT_PATH_GIF
+from tennis_analyzer.config import OUTPUT_PATH_VIDEO, OUTPUT_PATH_GIF
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +34,7 @@ def extract_frames(cap):
     return frames
 
 
-def export_video(fps, frames, output_path=OUTPUT_PATH):
+def export_video(fps, frames, output_path=OUTPUT_PATH_VIDEO):
     height, width = frames[0].shape[:2]
 
     out = cv2.VideoWriter(

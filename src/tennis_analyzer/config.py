@@ -40,6 +40,6 @@ ALL_LANDMARKS = {
 
 PARTS = ["shoulder", "elbow", "wrist", "hip", "knee", "ankle", "foot_index"]
 
-INPUT_PATH = "./data/input.mp4"
-OUTPUT_PATH = "./output/output.mp4"
+INPUT_PATH_VIDEO = "./data/input.mp4"
+OUTPUT_PATH_VIDEO = "./output/output.mp4"
 OUTPUT_PATH_GIF = "./output/output.gif"
