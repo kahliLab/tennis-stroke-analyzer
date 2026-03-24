@@ -3,7 +3,7 @@ import logging
 from tennis_analyzer.overlay import annotate_frame
 from tennis_analyzer.pose_tracker import get_pose_data
 from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
-from tennis_analyzer.video_processor import export_video, extract_frames, load_video
+from tennis_analyzer.video_processor import export_video, export_gif, extract_frames, load_video
 from tennis_analyzer.config import INPUT_PATH
 
 logging.basicConfig(
@@ -29,6 +29,7 @@ def main():
             annotated_frames.append(annotated_frame)
 
         output_file = export_video(fps, annotated_frames)
+        output_file_gif = export_gif(annotated_frames)
 
     except Exception as e:
         logger.error(f"Look here {e} for the error that crashed the programm.")
