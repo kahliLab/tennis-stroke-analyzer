@@ -38,7 +38,7 @@ ALL_LANDMARKS = {
     "foot_index_right": 32,
 }
 
-PARTS = ["shoulder", "elbow", "wrist", "hip", "knee", "ankle", "foot_index"]
+PARTS = ["nose", "shoulder", "elbow", "wrist", "hip", "knee", "ankle", "foot_index"]
 
 INPUT_PATH_VIDEO = "./data/input.mp4"
 OUTPUT_PATH_VIDEO = "./output/output.mp4"
