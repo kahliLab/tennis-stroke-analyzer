@@ -6,14 +6,27 @@ logger = logging.getLogger(__name__)
 from tennis_analyzer.config import STROKE_COLOUR, PARTS
 
 
-def put_text(stroke, frame):
+def put_text(coordindates, stroke, frame):
+    PART_NOSE = [p for p in PARTS if p == "nose"]
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
 
-    frame = cv2.putText(
-        frame, stroke, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
+    height, width = frame.shape[:2]
+
+    get_nose = lambda nose: (
+        int(nose[0] * width),
+        int(nose[1] * height),
     )
+
+    points = {
+        part: get_nose(coordindates["nose"]) for part in PART_NOSE
+    }
+
+    for part in PART_NOSE:
+        frame = cv2.putText(
+            frame, stroke, (points[part][0]-20, points[part][1]-40), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
+        )
 
     return frame
 
