@@ -55,7 +55,7 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
 
 
 def annotate_frame(stroke, frame, coordinates, dominant_hand):
-    frame = put_text(stroke, frame)
+    frame = put_text(coordinates, stroke, frame)
     frame = draw_lines(coordinates, frame, stroke, dominant_hand)
     
     return frame
