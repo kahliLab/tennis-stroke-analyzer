@@ -28,8 +28,8 @@ def main():
             annotated_frame = annotate_frame(stroke, frame, coord, dom_hand)
             annotated_frames.append(annotated_frame)
 
-        output_file = export_video(fps, annotated_frames)
-        output_file_gif = export_gif(annotated_frames)
+        export_video(fps, annotated_frames)
+        export_gif(annotated_frames)
 
     except Exception as e:
         logger.error(f"Look here {e} for the error that crashed the programm.")
