@@ -8,16 +8,26 @@ Improving tennis technique requires understanding your strokes. This tool automa
 ## How it works
 1. Load a tennis video
 2. Extract frames
-3. Track player pose (wrist/elbow) via MediaPipe
-4. Classify swing direction → Topspin / Slice / Flat
-5. Overlay labels on video and export
+3. Track player pose
+4. Classify swing direction
+5. Overlay labels on video and gif
+6. export
 
 ## Tech Stack
 - Python
 - OpenCV – video processing
 - MediaPipe – pose tracking
-- NumPy – trajectory math
 - Docker
 
 ## Project Status
-- Work in progress
+v1.0 – Prototype complete
+
+Working:
+- Pose tracking via MediaPipe
+- Stroke classification (Topspin / Slice / Flat)
+- Annotated video and GIF export
+- Docker setup
+
+Planned for v2.0:
+- YOLOv8 racket tracking for improved stroke detection
+- Automatic swing segmentation
