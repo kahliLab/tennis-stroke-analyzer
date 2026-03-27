@@ -3,11 +3,11 @@ import cv2
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import STROKE_COLOUR, PARTS
+from tennis_analyzer.config import STROKE_COLOUR, PART_NOSE, PARTS_FOR_LINES
 
 
 def put_text(coordindates, stroke, frame):
-    PART_NOSE = [p for p in PARTS if p == "nose"]
+    #PART_NOSE = [p for p in PARTS if p == "nose"]
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -32,7 +32,7 @@ def put_text(coordindates, stroke, frame):
 
 
 def draw_lines(coordindates, frame, stroke, dominant_hand):
-    PARTS_FOR_LINES = [p for p in PARTS if p != "nose"]
+    #PARTS_FOR_LINES = [p for p in PARTS if p != "nose"]
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
