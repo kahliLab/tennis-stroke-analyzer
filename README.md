@@ -11,7 +11,7 @@ Improving tennis technique requires understanding your strokes. This tool automa
 3. Track player pose
 4. Classify swing direction
 5. Overlay labels on video and gif
-6. export
+6. Export
 
 ## Tech Stack
 - Python
@@ -24,10 +24,13 @@ v1.0 – Prototype complete
 
 Working:
 - Pose tracking via MediaPipe
+- Track position of relevant body parts
 - Stroke classification (Topspin / Slice / Flat)
 - Annotated video and GIF export
 - Docker setup
 
 Planned for v2.0:
 - YOLOv8 racket tracking for improved stroke detection
+- Forehand/Backhand/Serve classification 
 - Automatic swing segmentation
+- Code refactoring and test coverage improvement
