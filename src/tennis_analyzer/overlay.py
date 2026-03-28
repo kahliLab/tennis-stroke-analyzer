@@ -3,7 +3,7 @@ import cv2
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import STROKE_COLOUR, PART_NOSE, PARTS_FOR_LINES
+from tennis_analyzer.config import STROKE_COLOUR, PART_NOSE, PARTS_ARM, PARTS_BODY
 
 
 def put_text(coordindates, stroke, frame):
@@ -42,12 +42,19 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
         int(body_part[1] * height),
     )
 
-    points = {
-        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_FOR_LINES
+    points_body = {
+        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_BODY
     }
 
-    for parts in zip(PARTS_FOR_LINES, PARTS_FOR_LINES[1:]):
-        cv2.line(frame, points[parts[0]], points[parts[1]], STROKE_COLOUR[stroke], 2)
+    for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
+        cv2.line(frame, points_body[parts[0]], points_body[parts[1]], STROKE_COLOUR[stroke], 2)
+
+    points_arm = {
+        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
+    }
+
+    for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
+        cv2.line(frame, points_arm[parts[0]], points_arm[parts[1]], STROKE_COLOUR[stroke], 2)
 
     return frame
 
