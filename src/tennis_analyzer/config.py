@@ -40,7 +40,7 @@ ALL_LANDMARKS = {
 
 PARTS = ["nose", "shoulder", "elbow", "wrist", "hip", "knee", "ankle", "foot_index"]
 PARTS_FOR_LINES = [p for p in PARTS if p != "nose"]
-PART_NOSE = [p for p in PARTS if p == "nose"]
+PART_NOSE = ["nose"]
 
 INPUT_PATH_VIDEO = "./data/input.mp4"
 OUTPUT_PATH_VIDEO = "./output/output.mp4"
