@@ -24,7 +24,7 @@ def put_text(coordindates, stroke, frame):
 
     for part in PART_NOSE:
         frame = cv2.putText(
-            frame, stroke, (points[part][0]-20, points[part][1]-40), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
+            frame, stroke, (points[part][0]-40, points[part][1]-60), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
         )
 
     return frame
