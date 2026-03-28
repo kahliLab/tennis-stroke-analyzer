@@ -39,8 +39,9 @@ ALL_LANDMARKS = {
 }
 
 PARTS = ["nose", "shoulder", "elbow", "wrist", "hip", "knee", "ankle", "foot_index"]
-PARTS_FOR_LINES = [p for p in PARTS if p != "nose"]
 PART_NOSE = ["nose"]
+PARTS_BODY = ["shoulder", "hip", "knee", "ankle", "foot_index"]
+PARTS_ARM = ["shoulder", "elbow", "wrist"]
 
 INPUT_PATH_VIDEO = "./data/input.mp4"
 OUTPUT_PATH_VIDEO = "./output/output.mp4"
