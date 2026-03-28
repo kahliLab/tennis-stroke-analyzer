@@ -11,7 +11,7 @@ Improving tennis technique requires understanding your strokes. This tool automa
 3. Track player pose
 4. Classify swing direction
 5. Overlay labels on video and gif
-6. export
+6. Export
 
 ## Tech Stack
 - Python
