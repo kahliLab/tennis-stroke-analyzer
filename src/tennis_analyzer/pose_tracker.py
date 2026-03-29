@@ -37,8 +37,7 @@ def get_landmarks(frame, pose):
     return landmarks.pose_landmarks
 
 
-def get_coordinates(landmarks):
-    body_parts = get_body_parts()
+def get_coordinates(body_parts, landmarks):
     coordinates_from_landmark = lambda landmark: [landmark.x, landmark.y, landmark.z]
 
     coordinates = {
@@ -57,11 +56,13 @@ def get_pose_data(frames):
     pose_data = []
 
     pose = init_pose()
+    body_parts = get_body_parts()
+
     for frame in frames:
         landmarks = get_landmarks(frame, pose)
         if not landmarks:
             continue
-        coordinates = get_coordinates(landmarks)
+        coordinates = get_coordinates(body_parts, landmarks)
         pose_data.append(coordinates)
 
     logger.info(f"Processed {len(pose_data)} frames with landmarks out of {len(frames)} total.")
