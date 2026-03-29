@@ -21,9 +21,9 @@ def fake_landmarks():
     return FakeLandmarks()
 
 def test_get_coordinates(fake_landmarks):
-    result = get_coordinates(fake_landmarks)
-
     body_parts = get_body_parts()
+    result = get_coordinates(body_parts, fake_landmarks)
+
 
     assert len(result) == len(body_parts)
 
