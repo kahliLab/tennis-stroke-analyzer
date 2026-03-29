@@ -25,7 +25,7 @@ def main():
 
         annotated_frames = []
         for frame, coord in zip(frames, pose_data):
-            annotated_frame = annotate_frame(stroke, frame, coord, dom_hand)
+            annotated_frame = annotate_frame(stroke, frame, coord, dom_hand, body_color_select=False)
             annotated_frames.append(annotated_frame)
 
         export_video(fps, annotated_frames)

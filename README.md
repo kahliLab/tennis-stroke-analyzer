@@ -30,6 +30,7 @@ Working:
 - Docker setup
 
 Planned for v2.0:
+- Improve coloring of annotations in frames
 - YOLOv8 racket tracking for improved stroke detection
 - Forehand/Backhand/Serve classification 
 - Automatic swing segmentation
