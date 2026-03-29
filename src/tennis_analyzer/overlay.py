@@ -30,10 +30,15 @@ def put_text(coordindates, stroke, frame):
     return frame
 
 
-def draw_lines(coordindates, frame, stroke, dominant_hand):
+def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=False):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
+
+    if body_color_select:
+        body_color = BODY_COLOR
+    else:
+        body_color = STROKE_COLOUR[stroke]
 
     height, width = frame.shape[:2]
 
@@ -47,7 +52,7 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
     }
 
     for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
-        cv2.line(frame, points_body[parts[0]], points_body[parts[1]], BODY_COLOR, 2)
+        cv2.line(frame, points_body[parts[0]], points_body[parts[1]], body_color, 2)
 
     points_arm = {
         part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
@@ -59,8 +64,8 @@ def draw_lines(coordindates, frame, stroke, dominant_hand):
     return frame
 
 
-def annotate_frame(stroke, frame, coordinates, dominant_hand):
+def annotate_frame(stroke, frame, coordinates, dominant_hand, body_color_select):
     frame = put_text(coordinates, stroke, frame)
-    frame = draw_lines(coordinates, frame, stroke, dominant_hand)
+    frame = draw_lines(coordinates, frame, stroke, dominant_hand, body_color_select)
     
     return frame
