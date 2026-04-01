@@ -1,7 +1,8 @@
-import pytest
 from dataclasses import dataclass
 
-from tennis_analyzer.pose_tracker import get_coordinates, get_body_parts
+import pytest
+
+from tennis_analyzer.pose_tracker import get_body_parts, get_coordinates
 
 
 @dataclass
@@ -20,10 +21,10 @@ class FakeLandmarks:
 def fake_landmarks():
     return FakeLandmarks()
 
+
 def test_get_coordinates(fake_landmarks):
     body_parts = get_body_parts()
     result = get_coordinates(body_parts, fake_landmarks)
-
 
     assert len(result) == len(body_parts)
 

@@ -146,6 +146,7 @@ def test_classifiy_stroke(pose_data, expected):
 def test_detect_dominant_hand(pose_data, expected):
     assert detect_dominant_hand(pose_data) == expected
 
+
 def test_detect_dominant_hand_lefty_override():
     assert detect_dominant_hand(pose_data_right, lefty=True) == "left"
     assert detect_dominant_hand(pose_data_left, lefty=True) == "left"

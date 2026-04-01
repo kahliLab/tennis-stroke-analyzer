@@ -1,10 +1,12 @@
-import cv2
-import imageio
 import logging
 
-from tennis_analyzer.config import OUTPUT_PATH_VIDEO, OUTPUT_PATH_GIF
+import cv2
+import imageio
+
+from tennis_analyzer.config import OUTPUT_PATH_GIF, OUTPUT_PATH_VIDEO
 
 logger = logging.getLogger(__name__)
+
 
 def load_video(path):
     cap = cv2.VideoCapture(path)
