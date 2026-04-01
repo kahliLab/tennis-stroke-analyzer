@@ -17,3 +17,6 @@ pythonpath = ["src"]
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["tennis_analyzer*"]
+
+[tool.isort]
+profile = "black"
