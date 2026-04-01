@@ -2,6 +2,8 @@
 name = "tennis-stroke-analyzer"
 version = "0.1.0"
 dependencies = [
+    "black==26.3.1",
+    "isort==8.0.1",
     "opencv-python==4.13.0.92",
     "mediapipe==0.10.9",
     "numpy==2.4.2",
@@ -15,3 +17,6 @@ pythonpath = ["src"]
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["tennis_analyzer*"]
+
+[tool.isort]
+profile = "black"

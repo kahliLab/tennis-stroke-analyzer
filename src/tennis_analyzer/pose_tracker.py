@@ -1,10 +1,12 @@
+import logging
+
 import cv2
 import mediapipe as mp
-import logging
 
 logger = logging.getLogger(__name__)
 
 from tennis_analyzer.config import ALL_LANDMARKS, PARTS
+
 
 def init_pose():
     mp_pose = mp.solutions.pose
@@ -16,7 +18,7 @@ def init_pose():
 
 def get_body_parts():
     body_parts = {}
-    
+
     for part in PARTS:
         for key, value in ALL_LANDMARKS.items():
             if part in key:
@@ -65,5 +67,7 @@ def get_pose_data(frames):
         coordinates = get_coordinates(body_parts, landmarks)
         pose_data.append(coordinates)
 
-    logger.info(f"Processed {len(pose_data)} frames with landmarks out of {len(frames)} total.")
+    logger.info(
+        f"Processed {len(pose_data)} frames with landmarks out of {len(frames)} total."
+    )
     return pose_data

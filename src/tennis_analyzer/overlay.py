@@ -1,9 +1,16 @@
 import logging
+
 import cv2
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import BODY_COLOR, STROKE_COLOUR, PART_NOSE, PARTS_ARM, PARTS_BODY
+from tennis_analyzer.config import (
+    BODY_COLOR,
+    PART_NOSE,
+    PARTS_ARM,
+    PARTS_BODY,
+    STROKE_COLOUR,
+)
 
 
 def put_text(coordindates, stroke, frame):
@@ -18,13 +25,17 @@ def put_text(coordindates, stroke, frame):
         int(nose[1] * height),
     )
 
-    points = {
-        part: get_nose(coordindates["nose"]) for part in PART_NOSE
-    }
+    points = {part: get_nose(coordindates["nose"]) for part in PART_NOSE}
 
     for part in PART_NOSE:
         frame = cv2.putText(
-            frame, stroke, (points[part][0]-40, points[part][1]-60), cv2.FONT_HERSHEY_SIMPLEX, 1, STROKE_COLOUR[stroke], 2
+            frame,
+            stroke,
+            (points[part][0] - 40, points[part][1] - 60),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            STROKE_COLOUR[stroke],
+            2,
         )
 
     return frame
@@ -59,7 +70,9 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
     }
 
     for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
-        cv2.line(frame, points_arm[parts[0]], points_arm[parts[1]], STROKE_COLOUR[stroke], 2)
+        cv2.line(
+            frame, points_arm[parts[0]], points_arm[parts[1]], STROKE_COLOUR[stroke], 2
+        )
 
     return frame
 
@@ -67,5 +80,5 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
 def annotate_frame(stroke, frame, coordinates, dominant_hand, body_color_select):
     frame = put_text(coordinates, stroke, frame)
     frame = draw_lines(coordinates, frame, stroke, dominant_hand, body_color_select)
-    
+
     return frame
