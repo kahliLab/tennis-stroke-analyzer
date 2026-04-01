@@ -18,6 +18,7 @@ Improving tennis technique requires understanding your strokes. This tool automa
 - OpenCV – video processing
 - MediaPipe – pose tracking
 - Docker
+- Gitlab CI/CD (automated testing and linting)
 
 ## Project Status
 v1.0 – Prototype complete
