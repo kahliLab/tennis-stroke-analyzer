@@ -1,8 +1,16 @@
 stages:
   - test
+  - lint
 
 test:
   image: python:3.11
   script:
     - pip install .
     - pytest tests/
+
+lint:
+  image: python:3.11
+  script:
+    - pip install .
+    - isort --check .
+    - black --check .
