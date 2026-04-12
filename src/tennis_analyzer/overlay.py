@@ -13,6 +13,15 @@ from tennis_analyzer.config import (
 )
 
 
+def get_body_point(body_part, height, width):
+    body_point = (
+        int(body_part[0] * width),
+        int(body_part[1] * height),
+    )
+
+    return body_point
+
+
 def put_text(coordinates, spin, frame):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
