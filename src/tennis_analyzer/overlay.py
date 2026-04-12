@@ -13,6 +13,35 @@ from tennis_analyzer.config import (
 )
 
 
+def get_body_point(body_part, height, width):
+    body_point = (
+        int(body_part[0] * width),
+        int(body_part[1] * height),
+    )
+
+    return body_point
+
+
+def get_all_body_points(body_parts, coordinates, height, width, dominant_hand=None):
+    if dominant_hand:
+        all_body_points = {
+            part: get_body_point(coordinates[f"{part}_{dominant_hand}"], height, width)
+            for part in body_parts
+        }
+    else:
+        all_body_points = {
+            part: get_body_point(coordinates["nose"], height, width)
+            for part in body_parts
+        }
+
+    return all_body_points
+
+
+def create_lines(frame, body_parts, points, color):
+    for parts in zip(body_parts, body_parts[1:]):
+        cv2.line(frame, points[parts[0]], points[parts[1]], color, 2)
+
+
 def put_text(coordinates, spin, frame):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
@@ -20,12 +49,7 @@ def put_text(coordinates, spin, frame):
 
     height, width = frame.shape[:2]
 
-    get_nose = lambda nose: (
-        int(nose[0] * width),
-        int(nose[1] * height),
-    )
-
-    points = {part: get_nose(coordinates["nose"]) for part in PART_NOSE}
+    points = get_all_body_points(PART_NOSE, coordinates, height, width)
 
     for part in PART_NOSE:
         frame = cv2.putText(
@@ -41,7 +65,7 @@ def put_text(coordinates, spin, frame):
     return frame
 
 
-def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False):
+def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -53,24 +77,15 @@ def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False)
 
     height, width = frame.shape[:2]
 
-    get_point = lambda body_part: (
-        int(body_part[0] * width),
-        int(body_part[1] * height),
+    points_body = get_all_body_points(
+        PARTS_BODY, coordinates, height, width, dominant_hand
     )
+    create_lines(frame, PARTS_BODY, points_body, body_color)
 
-    points_body = {
-        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_BODY
-    }
-
-    for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
-        cv2.line(frame, points_body[parts[0]], points_body[parts[1]], body_color, 2)
-
-    points_arm = {
-        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
-    }
-
-    for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
-        cv2.line(frame, points_arm[parts[0]], points_arm[parts[1]], SPIN_COLOR[spin], 2)
+    points_arm = get_all_body_points(
+        PARTS_ARM, coordinates, height, width, dominant_hand
+    )
+    create_lines(frame, PARTS_ARM, points_arm, SPIN_COLOR[spin])
 
     return frame
 
