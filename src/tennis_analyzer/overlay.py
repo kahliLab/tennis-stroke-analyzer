@@ -13,7 +13,7 @@ from tennis_analyzer.config import (
 )
 
 
-def put_text(coordindates, stroke, frame):
+def put_text(coordindates, spin, frame):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -30,18 +30,18 @@ def put_text(coordindates, stroke, frame):
     for part in PART_NOSE:
         frame = cv2.putText(
             frame,
-            stroke,
+            spin,
             (points[part][0] - 40, points[part][1] - 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,
-            SPIN_COLOR[stroke],
+            SPIN_COLOR[spin],
             2,
         )
 
     return frame
 
 
-def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=False):
+def draw_lines(coordindates, frame, spin, dominant_hand, body_color_select=False):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -49,7 +49,7 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
     if body_color_select:
         body_color = BODY_COLOR
     else:
-        body_color = SPIN_COLOR[stroke]
+        body_color = SPIN_COLOR[spin]
 
     height, width = frame.shape[:2]
 
@@ -70,15 +70,13 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
     }
 
     for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
-        cv2.line(
-            frame, points_arm[parts[0]], points_arm[parts[1]], SPIN_COLOR[stroke], 2
-        )
+        cv2.line(frame, points_arm[parts[0]], points_arm[parts[1]], SPIN_COLOR[spin], 2)
 
     return frame
 
 
-def annotate_frame(stroke, frame, coordinates, dominant_hand, body_color_select):
-    frame = put_text(coordinates, stroke, frame)
-    frame = draw_lines(coordinates, frame, stroke, dominant_hand, body_color_select)
+def annotate_frame(spin, frame, coordinates, dominant_hand, body_color_select):
+    frame = put_text(coordinates, spin, frame)
+    frame = draw_lines(coordinates, frame, spin, dominant_hand, body_color_select)
 
     return frame
