@@ -1,5 +1,7 @@
 THRESHOLD = 0.05
 
+LEFTY = True
+
 SPIN_COLOR = {
     "Topspin": (0, 0, 255),
     "Flat": (0, 255, 0),
