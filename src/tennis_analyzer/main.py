@@ -26,12 +26,12 @@ def main():
         pose_data = get_pose_data(frames)
 
         dom_hand = detect_dominant_hand(pose_data, lefty=True)
-        stroke = classify_spin(pose_data, dom_hand)
+        spin = classify_spin(pose_data, dom_hand)
 
         annotated_frames = []
         for frame, coord in zip(frames, pose_data):
             annotated_frame = annotate_frame(
-                stroke, frame, coord, dom_hand, body_color_select=False
+                spin, frame, coord, dom_hand, body_color_select=False
             )
             annotated_frames.append(annotated_frame)
 
