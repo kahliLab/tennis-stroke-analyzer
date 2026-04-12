@@ -1,6 +1,6 @@
 THRESHOLD = 0.05
 
-STROKE_COLOUR = {
+SPIN_COLOR = {
     "Topspin": (0, 0, 255),
     "Flat": (0, 255, 0),
     "Slice": (255, 0, 0),

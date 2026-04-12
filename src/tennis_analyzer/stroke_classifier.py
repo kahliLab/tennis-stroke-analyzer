@@ -32,7 +32,7 @@ def detect_dominant_hand(pose_data, lefty=False):
     return dominant_hand
 
 
-def classify_stroke(pose_data, dominant_hand):
+def classify_spin(pose_data, dominant_hand):
     dominant_hand = f"_{dominant_hand}"
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
@@ -45,17 +45,17 @@ def classify_stroke(pose_data, dominant_hand):
     elbow_end = get_y(end_pose, "elbow")
 
     if abs(wrist_start - elbow_start) < THRESHOLD:
-        stroke = "Flat"
+        spin = "Flat"
     elif wrist_start < elbow_start and wrist_end > elbow_end:
-        stroke = "Slice"
+        spin = "Slice"
     elif wrist_start > elbow_start and wrist_end < elbow_end:
-        stroke = "Topspin"
+        spin = "Topspin"
     else:
-        stroke = "Learn tennis first!"
+        spin = "Learn tennis first!"
 
-    if stroke == "Learn tennis first!":
-        logger.warning("That's one weird stroke you have there...")
+    if spin == "Learn tennis first!":
+        logger.warning("That's one weird spin you have there...")
     else:
-        logger.info(f"Stroke in frame classified as {stroke.lower()}")
+        logger.info(f"spin in frame classified as {spin.lower()}")
 
-    return stroke
+    return spin

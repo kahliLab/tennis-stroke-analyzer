@@ -3,7 +3,7 @@ import logging
 from tennis_analyzer.config import INPUT_PATH_VIDEO
 from tennis_analyzer.overlay import annotate_frame
 from tennis_analyzer.pose_tracker import get_pose_data
-from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
+from tennis_analyzer.stroke_classifier import classify_spin, detect_dominant_hand
 from tennis_analyzer.video_processor import (
     export_gif,
     export_video,
@@ -26,12 +26,12 @@ def main():
         pose_data = get_pose_data(frames)
 
         dom_hand = detect_dominant_hand(pose_data, lefty=True)
-        stroke = classify_stroke(pose_data, dom_hand)
+        spin = classify_spin(pose_data, dom_hand)
 
         annotated_frames = []
         for frame, coord in zip(frames, pose_data):
             annotated_frame = annotate_frame(
-                stroke, frame, coord, dom_hand, body_color_select=False
+                spin, frame, coord, dom_hand, body_color_select=False
             )
             annotated_frames.append(annotated_frame)
 
