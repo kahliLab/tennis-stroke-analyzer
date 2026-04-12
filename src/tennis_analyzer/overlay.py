@@ -13,7 +13,7 @@ from tennis_analyzer.config import (
 )
 
 
-def put_text(coordindates, spin, frame):
+def put_text(coordinates, spin, frame):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -25,7 +25,7 @@ def put_text(coordindates, spin, frame):
         int(nose[1] * height),
     )
 
-    points = {part: get_nose(coordindates["nose"]) for part in PART_NOSE}
+    points = {part: get_nose(coordinates["nose"]) for part in PART_NOSE}
 
     for part in PART_NOSE:
         frame = cv2.putText(
@@ -41,7 +41,7 @@ def put_text(coordindates, spin, frame):
     return frame
 
 
-def draw_lines(coordindates, frame, spin, dominant_hand, body_color_select=False):
+def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -59,14 +59,14 @@ def draw_lines(coordindates, frame, spin, dominant_hand, body_color_select=False
     )
 
     points_body = {
-        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_BODY
+        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_BODY
     }
 
     for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
         cv2.line(frame, points_body[parts[0]], points_body[parts[1]], body_color, 2)
 
     points_arm = {
-        part: get_point(coordindates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
+        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
     }
 
     for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
