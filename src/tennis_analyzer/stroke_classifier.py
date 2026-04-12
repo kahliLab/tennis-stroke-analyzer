@@ -2,15 +2,17 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import THRESHOLD
+from tennis_analyzer.config import LEFTY, THRESHOLD
 
 
-def detect_dominant_hand(pose_data, lefty=False):
-    dominant_hand = None
-
+def detect_dominant_hand(pose_data):
     if not pose_data:
         logger.error("No pose data available.")
         raise ValueError("Detecting dominant is not possible without pose data.")
+
+    if LEFTY:
+        dominant_hand = "left"
+        return dominant_hand
 
     left_hand = [i["wrist_left"][1] for i in pose_data if i.get("wrist_left")]
     right_hand = [i["wrist_right"][1] for i in pose_data if i.get("wrist_right")]
@@ -23,9 +25,6 @@ def detect_dominant_hand(pose_data, lefty=False):
         dominant_hand = "left"
     else:
         dominant_hand = "right"
-
-    if lefty:
-        dominant_hand = "left"
 
     logger.info(f"Dominant hand is {dominant_hand}")
 

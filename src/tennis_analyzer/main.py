@@ -25,7 +25,7 @@ def main():
 
         pose_data = get_pose_data(frames)
 
-        dom_hand = detect_dominant_hand(pose_data, lefty=True)
+        dom_hand = detect_dominant_hand(pose_data)
         spin = classify_spin(pose_data, dom_hand)
 
         annotated_frames = []
