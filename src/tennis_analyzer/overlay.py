@@ -29,12 +29,9 @@ def put_text(coordinates, spin, frame):
 
     height, width = frame.shape[:2]
 
-    get_nose = lambda nose: (
-        int(nose[0] * width),
-        int(nose[1] * height),
-    )
-
-    points = {part: get_nose(coordinates["nose"]) for part in PART_NOSE}
+    points = {
+        part: get_body_point(coordinates["nose"], height, width) for part in PART_NOSE
+    }
 
     for part in PART_NOSE:
         frame = cv2.putText(
@@ -62,20 +59,17 @@ def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False)
 
     height, width = frame.shape[:2]
 
-    get_point = lambda body_part: (
-        int(body_part[0] * width),
-        int(body_part[1] * height),
-    )
-
     points_body = {
-        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_BODY
+        part: get_body_point(coordinates[f"{part}_{dominant_hand}"], height, width)
+        for part in PARTS_BODY
     }
 
     for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
         cv2.line(frame, points_body[parts[0]], points_body[parts[1]], body_color, 2)
 
     points_arm = {
-        part: get_point(coordinates[f"{part}_{dominant_hand}"]) for part in PARTS_ARM
+        part: get_body_point(coordinates[f"{part}_{dominant_hand}"], height, width)
+        for part in PARTS_ARM
     }
 
     for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
