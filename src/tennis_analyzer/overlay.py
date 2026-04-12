@@ -25,11 +25,13 @@ def get_body_point(body_part, height, width):
 def get_all_body_points(body_parts, coordinates, height, width, dominant_hand=None):
     if dominant_hand:
         all_body_points = {
-            part: get_body_point(coordinates[f"{part}_{dominant_hand}"], height, width) for part in body_parts
+            part: get_body_point(coordinates[f"{part}_{dominant_hand}"], height, width)
+            for part in body_parts
         }
     else:
         all_body_points = {
-            part: get_body_point(coordinates["nose"], height, width) for part in body_parts
+            part: get_body_point(coordinates["nose"], height, width)
+            for part in body_parts
         }
 
     return all_body_points
@@ -63,7 +65,7 @@ def put_text(coordinates, spin, frame):
     return frame
 
 
-def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False):
+def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
@@ -75,15 +77,15 @@ def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select=False)
 
     height, width = frame.shape[:2]
 
-    points_body = get_all_body_points(PARTS_BODY, coordinates, height, width, dominant_hand)
+    points_body = get_all_body_points(
+        PARTS_BODY, coordinates, height, width, dominant_hand
+    )
+    create_lines(frame, PARTS_BODY, points_body, body_color)
 
-    for parts in zip(PARTS_BODY, PARTS_BODY[1:]):
-        cv2.line(frame, points_body[parts[0]], points_body[parts[1]], body_color, 2)
-
-    points_arm = get_all_body_points(PARTS_ARM, coordinates, height, width, dominant_hand)
-
-    for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
-        cv2.line(frame, points_arm[parts[0]], points_arm[parts[1]], SPIN_COLOR[spin], 2)
+    points_arm = get_all_body_points(
+        PARTS_ARM, coordinates, height, width, dominant_hand
+    )
+    create_lines(frame, PARTS_ARM, points_arm, SPIN_COLOR[spin])
 
     return frame
 
