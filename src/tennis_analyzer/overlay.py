@@ -9,7 +9,7 @@ from tennis_analyzer.config import (
     PART_NOSE,
     PARTS_ARM,
     PARTS_BODY,
-    STROKE_COLOUR,
+    SPIN_COLOR,
 )
 
 
@@ -34,7 +34,7 @@ def put_text(coordindates, stroke, frame):
             (points[part][0] - 40, points[part][1] - 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,
-            STROKE_COLOUR[stroke],
+            SPIN_COLOR[stroke],
             2,
         )
 
@@ -49,7 +49,7 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
     if body_color_select:
         body_color = BODY_COLOR
     else:
-        body_color = STROKE_COLOUR[stroke]
+        body_color = SPIN_COLOR[stroke]
 
     height, width = frame.shape[:2]
 
@@ -71,7 +71,7 @@ def draw_lines(coordindates, frame, stroke, dominant_hand, body_color_select=Fal
 
     for parts in zip(PARTS_ARM, PARTS_ARM[1:]):
         cv2.line(
-            frame, points_arm[parts[0]], points_arm[parts[1]], STROKE_COLOUR[stroke], 2
+            frame, points_arm[parts[0]], points_arm[parts[1]], SPIN_COLOR[stroke], 2
         )
 
     return frame
