@@ -1,6 +1,6 @@
 import pytest
 
-from tennis_analyzer.stroke_classifier import classify_stroke, detect_dominant_hand
+from tennis_analyzer.stroke_classifier import classify_spin, detect_dominant_hand
 
 x = y = z = 0.05
 
@@ -131,9 +131,9 @@ pose_data_right = [
         (pose_data_unknown, "Learn tennis first!"),
     ],
 )
-def test_classifiy_stroke(pose_data, expected):
-    assert classify_stroke(pose_data, dominant_hand="left") == expected
-    assert classify_stroke(pose_data, dominant_hand="right") == expected
+def test_classifiy_spin(pose_data, expected):
+    assert classify_spin(pose_data, dominant_hand="left") == expected
+    assert classify_spin(pose_data, dominant_hand="right") == expected
 
 
 @pytest.mark.parametrize(

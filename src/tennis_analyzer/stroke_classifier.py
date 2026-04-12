@@ -32,7 +32,7 @@ def detect_dominant_hand(pose_data, lefty=False):
     return dominant_hand
 
 
-def classify_stroke(pose_data, dominant_hand):
+def classify_spin(pose_data, dominant_hand):
     dominant_hand = f"_{dominant_hand}"
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
