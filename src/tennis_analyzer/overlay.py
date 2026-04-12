@@ -35,6 +35,11 @@ def get_all_body_points(body_parts, coordinates, height, width, dominant_hand=No
     return all_body_points
 
 
+def create_lines(frame, body_parts, points, color):
+    for parts in zip(body_parts, body_parts[1:]):
+        cv2.line(frame, points[parts[0]], points[parts[1]], color, 2)
+
+
 def put_text(coordinates, spin, frame):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
