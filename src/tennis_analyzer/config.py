@@ -1,6 +1,7 @@
 THRESHOLD = 0.05
 
 LEFTY = True
+SEPARATE_BODY_COLOR = False
 
 SPIN_COLOR = {
     "Topspin": (0, 0, 255),
