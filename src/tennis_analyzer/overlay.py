@@ -9,8 +9,8 @@ from tennis_analyzer.config import (
     PART_NOSE,
     PARTS_ARM,
     PARTS_BODY,
+    SEPARATE_BODY_COLOR,
     SPIN_COLOR,
-    SEPARATE_BODY_COLOR
 )
 
 
