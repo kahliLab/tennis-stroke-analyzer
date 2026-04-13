@@ -31,7 +31,7 @@ def main():
         annotated_frames = []
         for frame, coord in zip(frames, pose_data):
             annotated_frame = annotate_frame(
-                spin, frame, coord, dom_hand, body_color_select=False
+                spin, frame, coord, dom_hand
             )
             annotated_frames.append(annotated_frame)
 

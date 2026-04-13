@@ -10,6 +10,7 @@ from tennis_analyzer.config import (
     PARTS_ARM,
     PARTS_BODY,
     SPIN_COLOR,
+    SEPARATE_BODY_COLOR
 )
 
 
@@ -65,12 +66,12 @@ def put_text(coordinates, spin, frame):
     return frame
 
 
-def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select):
+def draw_lines(coordinates, frame, spin, dominant_hand):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
         return None
 
-    if body_color_select:
+    if SEPARATE_BODY_COLOR:
         body_color = BODY_COLOR
     else:
         body_color = SPIN_COLOR[spin]
@@ -90,8 +91,8 @@ def draw_lines(coordinates, frame, spin, dominant_hand, body_color_select):
     return frame
 
 
-def annotate_frame(spin, frame, coordinates, dominant_hand, body_color_select):
+def annotate_frame(spin, frame, coordinates, dominant_hand):
     frame = put_text(coordinates, spin, frame)
-    frame = draw_lines(coordinates, frame, spin, dominant_hand, body_color_select)
+    frame = draw_lines(coordinates, frame, spin, dominant_hand)
 
     return frame
