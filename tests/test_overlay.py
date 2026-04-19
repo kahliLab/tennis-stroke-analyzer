@@ -17,10 +17,9 @@ def fake_coordinates():
     return fake_coordinates
     
 
-def test_put_text(fake_frame):
-    fake_coordinates = {"nose": [0.5, 0.3, 0.0]}
+def test_put_text(fake_frame, fake_coordinates):
     spin = "Flat"
-    
+
     original_frame = fake_frame.copy()
     result_frame = put_text(fake_coordinates, spin, fake_frame)
 
