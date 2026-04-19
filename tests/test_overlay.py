@@ -25,3 +25,14 @@ def test_put_text(fake_frame, fake_coordinates):
 
     assert result_frame is not None
     assert not np.array_equal(original_frame, result_frame)
+
+
+def test_draw_lines(fake_frame, fake_coordinates):
+    spin = "Flat"
+    dominant_hand = "left"
+
+    original_frame = fake_frame.copy()
+    result_frame = draw_lines(fake_coordinates, fake_frame, spin, dominant_hand)
+
+    assert result_frame is not None
+    assert not np.array_equal(original_frame, result_frame)
