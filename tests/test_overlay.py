@@ -1,13 +1,21 @@
 import numpy as np
 import pytest
 
-from tennis_analyzer.overlay import put_text
+from tennis_analyzer.overlay import put_text, draw_lines
+from tennis_analyzer.config import ALL_LANDMARKS
 
 
 @pytest.fixture
 def fake_frame():
     return np.zeros((480, 640, 3), dtype=np.uint8)
 
+@pytest.fixture
+def fake_coordinates():
+    fake_coordinates = {
+        key: [0.5, 0.3, 0.0] for key in ALL_LANDMARKS.keys()
+    }
+    return fake_coordinates
+    
 
 def test_put_text(fake_frame):
     fake_coordinates = {"nose": [0.5, 0.3, 0.0]}
