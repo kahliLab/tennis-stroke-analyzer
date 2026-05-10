@@ -37,11 +37,11 @@ def detect_dominant_hand(pose_data):
 
 
 def classify_spin(pose_data, dominant_hand):
-    dominant_hand = f"_{dominant_hand}"
+    dominant_hand_suffix = f"_{dominant_hand}"
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
 
-    get_y = lambda pose, part: pose[f"{part}{dominant_hand}"][1]
+    get_y = lambda pose, part: pose[f"{part}{dominant_hand_suffix}"][1]
 
     wrist_start = get_y(start_pose, "wrist")
     wrist_end = get_y(end_pose, "wrist")
