@@ -5,6 +5,12 @@ logger = logging.getLogger(__name__)
 from tennis_analyzer.config import LEFTY, THRESHOLD
 
 
+def calculate_total_movement(hand):
+    total_movement = sum(abs(a - b) for a, b in zip(hand[1:], hand[:-1]))
+
+    return total_movement
+
+
 def detect_dominant_hand(pose_data):
     if not pose_data:
         logger.error("No pose data available.")
