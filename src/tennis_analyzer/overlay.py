@@ -55,7 +55,7 @@ def put_text(coordinates, spin, frame):
     for part in PART_NOSE:
         frame = cv2.putText(
             frame,
-            spin,
+            spin.value,
             (points[part][0] - 40, points[part][1] - 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,
