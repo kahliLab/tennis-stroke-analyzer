@@ -36,6 +36,12 @@ def detect_dominant_hand(pose_data):
     return dominant_hand
 
 
+def get_y_coordinate(pose, part, dominant_hand_suffix):
+    y_coordinate = pose[f"{part}{dominant_hand_suffix}"][1]
+
+    return y_coordinate
+
+
 def classify_spin(pose_data, dominant_hand):
     dominant_hand_suffix = f"_{dominant_hand}"
 
