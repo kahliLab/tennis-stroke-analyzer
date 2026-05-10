@@ -23,9 +23,8 @@ def detect_dominant_hand(pose_data):
     left_hand = [i["wrist_left"][1] for i in pose_data if i.get("wrist_left")]
     right_hand = [i["wrist_right"][1] for i in pose_data if i.get("wrist_right")]
 
-    get_diff = lambda diff: sum(abs(a - b) for a, b in zip(diff[1:], diff[:-1]))
-
-    left_diff, right_diff = get_diff(left_hand), get_diff(right_hand)
+    left_diff = calculate_total_movement(left_hand)
+    right_diff = calculate_total_movement(right_hand)
 
     if left_diff > right_diff:
         dominant_hand = "left"
