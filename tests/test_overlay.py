@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from tennis_analyzer.config import ALL_LANDMARKS
+from tennis_analyzer.config import ALL_LANDMARKS, Spin
 from tennis_analyzer.overlay import annotate_frame, draw_lines, put_text
 
 
@@ -17,7 +17,7 @@ def fake_coordinates():
 
 
 def test_put_text(fake_frame, fake_coordinates):
-    spin = "Flat"
+    spin = Spin.FLAT
 
     original_frame = fake_frame.copy()
     result_frame = put_text(fake_coordinates, spin, fake_frame)
@@ -27,7 +27,7 @@ def test_put_text(fake_frame, fake_coordinates):
 
 
 def test_draw_lines(fake_frame, fake_coordinates):
-    spin = "Flat"
+    spin = Spin.FLAT
     dominant_hand = "left"
 
     original_frame = fake_frame.copy()
@@ -38,7 +38,7 @@ def test_draw_lines(fake_frame, fake_coordinates):
 
 
 def test_annotate_frame(fake_frame, fake_coordinates):
-    spin = "Flat"
+    spin = Spin.FLAT
     dominant_hand = "left"
 
     original_frame = fake_frame.copy()
