@@ -1,5 +1,6 @@
 THRESHOLD = 0.05
 
+# TODO Dominant hand is hard set via constant to override detection (which still needs some work)
 LEFTY = True
 SEPARATE_BODY_COLOR = False
 
