@@ -47,12 +47,10 @@ def classify_spin(pose_data, dominant_hand):
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
 
-    get_y = lambda pose, part: pose[f"{part}{dominant_hand_suffix}"][1]
-
-    wrist_start = get_y(start_pose, "wrist")
-    wrist_end = get_y(end_pose, "wrist")
-    elbow_start = get_y(start_pose, "elbow")
-    elbow_end = get_y(end_pose, "elbow")
+    wrist_start = get_y_coordinate(start_pose, "wrist", dominant_hand_suffix)
+    wrist_end = get_y_coordinate(end_pose, "wrist", dominant_hand_suffix)
+    elbow_start = get_y_coordinate(start_pose, "elbow", dominant_hand_suffix)
+    elbow_end = get_y_coordinate(end_pose, "elbow", dominant_hand_suffix)
 
     if abs(wrist_start - elbow_start) < THRESHOLD:
         spin = "Flat"
