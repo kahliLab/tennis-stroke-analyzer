@@ -2,7 +2,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import LEFTY, THRESHOLD
+from tennis_analyzer.config import LEFTY, THRESHOLD, Spin
 
 
 def calculate_total_movement(hand):
@@ -53,17 +53,17 @@ def classify_spin(pose_data, dominant_hand):
     elbow_end = get_y_coordinate(end_pose, "elbow", dominant_hand_suffix)
 
     if abs(wrist_start - elbow_start) < THRESHOLD:
-        spin = "Flat"
+        spin = Spin.FLAT
     elif wrist_start < elbow_start and wrist_end > elbow_end:
-        spin = "Slice"
+        spin = Spin.SLICE
     elif wrist_start > elbow_start and wrist_end < elbow_end:
-        spin = "Topspin"
+        spin = Spin.TOPSPIN
     else:
-        spin = "Learn tennis first!"
+        spin = Spin.LEARN_TENNIS
 
-    if spin == "Learn tennis first!":
+    if spin == Spin.LEARN_TENNIS:
         logger.warning("That's one weird spin you have there...")
     else:
-        logger.info(f"spin in frame classified as {spin.lower()}")
+        logger.info(f"spin in frame classified as {spin.value.lower()}")
 
     return spin
