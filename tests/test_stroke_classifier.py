@@ -1,6 +1,6 @@
 import pytest
 
-from tennis_analyzer.config import LEFTY
+from tennis_analyzer.config import LEFTY, Spin
 from tennis_analyzer.stroke_classifier import classify_spin, detect_dominant_hand
 
 x = y = z = 0.05
@@ -126,10 +126,10 @@ pose_data_right = [
 @pytest.mark.parametrize(
     "pose_data, expected",
     [
-        (pose_data_topspin, "Topspin"),
-        (pose_data_slice, "Slice"),
-        (pose_data_flat, "Flat"),
-        (pose_data_unknown, "Learn tennis first!"),
+        (pose_data_topspin, Spin.TOPSPIN),
+        (pose_data_slice, Spin.SLICE),
+        (pose_data_flat, Spin.FLAT),
+        (pose_data_unknown, Spin.LEARN_TENNIS),
     ],
 )
 def test_classifiy_spin(pose_data, expected):

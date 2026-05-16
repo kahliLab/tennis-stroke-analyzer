@@ -1,14 +1,26 @@
+from enum import Enum
+
 THRESHOLD = 0.05
 
+# TODO Dominant hand is hard set via constant to override detection (which still needs some work)
 LEFTY = True
 SEPARATE_BODY_COLOR = False
 
+
+class Spin(Enum):
+    TOPSPIN = "Topspin"
+    FLAT = "Flat"
+    SLICE = "Slice"
+    LEARN_TENNIS = "Learn tennis first!"
+
+
 SPIN_COLOR = {
-    "Topspin": (0, 0, 255),
-    "Flat": (0, 255, 0),
-    "Slice": (255, 0, 0),
-    "Learn tennis first!": (238, 130, 238),
+    Spin.TOPSPIN: (0, 0, 255),
+    Spin.FLAT: (0, 255, 0),
+    Spin.SLICE: (255, 0, 0),
+    Spin.LEARN_TENNIS: (238, 130, 238),
 }
+
 BODY_COLOR = (0, 255, 255)
 
 ALL_LANDMARKS = {

@@ -2,7 +2,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from tennis_analyzer.config import LEFTY, THRESHOLD
+from tennis_analyzer.config import LEFTY, THRESHOLD, Spin
+
+
+def calculate_total_movement(hand):
+    total_movement = sum(abs(a - b) for a, b in zip(hand[1:], hand[:-1]))
+
+    return total_movement
 
 
 def detect_dominant_hand(pose_data):
@@ -17,9 +23,8 @@ def detect_dominant_hand(pose_data):
     left_hand = [i["wrist_left"][1] for i in pose_data if i.get("wrist_left")]
     right_hand = [i["wrist_right"][1] for i in pose_data if i.get("wrist_right")]
 
-    get_diff = lambda diff: sum(abs(a - b) for a, b in zip(diff[1:], diff[:-1]))
-
-    left_diff, right_diff = get_diff(left_hand), get_diff(right_hand)
+    left_diff = calculate_total_movement(left_hand)
+    right_diff = calculate_total_movement(right_hand)
 
     if left_diff > right_diff:
         dominant_hand = "left"
@@ -31,30 +36,34 @@ def detect_dominant_hand(pose_data):
     return dominant_hand
 
 
+def get_y_coordinate(pose, part, dominant_hand_suffix):
+    y_coordinate = pose[f"{part}{dominant_hand_suffix}"][1]
+
+    return y_coordinate
+
+
 def classify_spin(pose_data, dominant_hand):
-    dominant_hand = f"_{dominant_hand}"
+    dominant_hand_suffix = f"_{dominant_hand}"
 
     start_pose, end_pose = pose_data[0], pose_data[-1]
 
-    get_y = lambda pose, part: pose[f"{part}{dominant_hand}"][1]
-
-    wrist_start = get_y(start_pose, "wrist")
-    wrist_end = get_y(end_pose, "wrist")
-    elbow_start = get_y(start_pose, "elbow")
-    elbow_end = get_y(end_pose, "elbow")
+    wrist_start = get_y_coordinate(start_pose, "wrist", dominant_hand_suffix)
+    wrist_end = get_y_coordinate(end_pose, "wrist", dominant_hand_suffix)
+    elbow_start = get_y_coordinate(start_pose, "elbow", dominant_hand_suffix)
+    elbow_end = get_y_coordinate(end_pose, "elbow", dominant_hand_suffix)
 
     if abs(wrist_start - elbow_start) < THRESHOLD:
-        spin = "Flat"
+        spin = Spin.FLAT
     elif wrist_start < elbow_start and wrist_end > elbow_end:
-        spin = "Slice"
+        spin = Spin.SLICE
     elif wrist_start > elbow_start and wrist_end < elbow_end:
-        spin = "Topspin"
+        spin = Spin.TOPSPIN
     else:
-        spin = "Learn tennis first!"
+        spin = Spin.LEARN_TENNIS
 
-    if spin == "Learn tennis first!":
+    if spin == Spin.LEARN_TENNIS:
         logger.warning("That's one weird spin you have there...")
     else:
-        logger.info(f"spin in frame classified as {spin.lower()}")
+        logger.info(f"spin in frame classified as {spin.value.lower()}")
 
     return spin
