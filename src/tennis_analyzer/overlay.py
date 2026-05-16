@@ -66,6 +66,13 @@ def put_text(coordinates, spin, frame):
     return frame
 
 
+def draw_body_lines(
+    frame, body_parts, coordinates, height, width, dominant_hand, color
+):
+    points = get_all_body_points(body_parts, coordinates, height, width, dominant_hand)
+    create_lines(frame, body_parts, points, color)
+
+
 def draw_lines(coordinates, frame, spin, dominant_hand):
     if frame is None:
         logger.warning("Frame is None, skipping overlay.")
@@ -78,15 +85,13 @@ def draw_lines(coordinates, frame, spin, dominant_hand):
 
     height, width = frame.shape[:2]
 
-    points_body = get_all_body_points(
-        PARTS_BODY, coordinates, height, width, dominant_hand
+    draw_body_lines(
+        frame, PARTS_BODY, coordinates, height, width, dominant_hand, body_color
     )
-    create_lines(frame, PARTS_BODY, points_body, body_color)
 
-    points_arm = get_all_body_points(
-        PARTS_ARM, coordinates, height, width, dominant_hand
+    draw_body_lines(
+        frame, PARTS_ARM, coordinates, height, width, dominant_hand, SPIN_COLOR[spin]
     )
-    create_lines(frame, PARTS_ARM, points_arm, SPIN_COLOR[spin])
 
     return frame
 
