@@ -121,3 +121,19 @@ def test_detect_dominant_hand_lefty_override():
     if LEFTY:
         assert detect_dominant_hand(pose_data_right) == "left"
         assert detect_dominant_hand(pose_data_left) == "left"
+
+
+@pytest.fixture(
+    params=[
+        (pose_data_left, "left"),
+        (pose_data_right, "right"),
+    ]
+)
+def dominant_hand_data(request):
+    return request.param
+
+
+@pytest.mark.skipif(LEFTY, reason="LEFTY override active")
+def test_detect_dominant_hand_2(dominant_hand_data):
+    pose_data, expected = dominant_hand_data
+    assert detect_dominant_hand(pose_data) == expected
