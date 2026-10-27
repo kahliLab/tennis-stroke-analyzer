@@ -3,7 +3,7 @@ import pytest
 from tennis_analyzer.config import LEFTY, Spin
 from tennis_analyzer.stroke_classifier import classify_spin, detect_dominant_hand
 
-x = y = z = 0.05
+x = z = 0.05
 
 pose_data_topspin = [
     {
